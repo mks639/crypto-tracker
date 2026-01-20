@@ -5,7 +5,7 @@ export const removeItemToWatchlist = async (e, id, setIsCoinAdded, userId = 'gue
   e.preventDefault();
   if (window.confirm("Are you sure you want to remove this coin?")) {
     let watchlist = JSON.parse(localStorage.getItem("watchlist"));
-    const newList = watchlist.filter((coin) => coin != id);
+    const newList = watchlist.filter((coin) => coin !== id);
     setIsCoinAdded(false);
     localStorage.setItem("watchlist", JSON.stringify(newList));
     await saveWatchlistToFirebase(userId, newList);

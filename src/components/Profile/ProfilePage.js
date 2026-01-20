@@ -13,7 +13,6 @@ import {
   Chip,
   Switch,
   FormControlLabel,
-  Divider,
   Alert,
   IconButton
 } from '@mui/material';
@@ -31,7 +30,7 @@ import { useAuth } from '../../auth/AuthContext';
 import { useApi } from '../../hooks/useApi';
 
 const ProfilePage = () => {
-  const { user, updateUserProfile, addToFavorites, removeFromFavorites } = useAuth();
+  const { user, updateUserProfile } = useAuth();
   const [editing, setEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     displayName: '',

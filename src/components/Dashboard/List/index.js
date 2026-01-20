@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import "./styles.css";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
-import { convertNumber } from "../../../functions/convertNumber";
 import { motion } from "framer-motion";
 import { Tooltip } from "@mui/material";
-import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import { saveItemToWatchlist } from "../../../functions/saveItemToWatchlist";
-import StarIcon from "@mui/icons-material/Star";
-import { removeItemToWatchlist } from "../../../functions/removeItemToWatchlist";
 import { useAuth } from "../../../auth/AuthContext";
 
 const formatMarketCap = (num) => {
@@ -22,7 +17,7 @@ const formatMarketCap = (num) => {
 function List({ coin, delay }) {
   const { user, addToFavorites, removeFromFavorites } = useAuth();
   const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
-  const [isCoinAdded, setIsCoinAdded] = useState(watchlist?.includes(coin?.id));
+  // const [isCoinAdded, setIsCoinAdded] = useState(watchlist?.includes(coin?.id));
   const [isFavorite, setIsFavorite] = useState(
     user?.profile?.favoriteCoins?.includes(coin?.id) || false
   );
@@ -58,7 +53,7 @@ function List({ coin, delay }) {
       >
         <Tooltip title="Coin Image">
           <td className="td-img">
-            <img src={coin.image || '/placeholder-coin.png'} className="coin-image coin-image-td" alt={coin.name || 'Coin'} />
+            <img src={coin.image || '/placeholder-coin.png'} className="coin-image coin-image-td" alt={coin.name ? coin.name : 'Coin'} />
           </td>
         </Tooltip>
         <Tooltip title="Coin Info" placement="bottom-start">
