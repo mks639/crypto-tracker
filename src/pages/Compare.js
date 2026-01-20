@@ -33,9 +33,38 @@ function Compare() {
     datasets: [],
   });
 
-  useEffect(() => {
-    getData();
-  }, [getData]);
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const coins = await get100Coins();
+        if (coins && Array.isArray(coins)) {
+          setAllCoins(coins);
+          const data1 = await getCoinData(crypto1);
+          const data2 = await getCoinData(crypto2);
+          
+          if (data1 && data2) {
+            settingCoinObject(data1, setCoin1Data);
+            settingCoinObject(data2, setCoin2Data);
+            
+            const prices1 = await getPrices(crypto1, days, priceType);
+            const prices2 = await getPrices(crypto2, days, priceType);
+            
+            if (prices1 && prices2) {
+              settingChartData(setChartData, prices1, prices2);
+            }
+          }
+        }
+      } catch (error) {
+        secureLog('error', 'Failed to load compare page data', { error: error.message });
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    useEffect(() => {
+      getData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
   const getData = async () => {
     setLoading(true);

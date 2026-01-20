@@ -35,7 +35,7 @@ if (isFirebaseConfigured()) {
     db = getFirestore(app);
     realtimeDb = getDatabase(app);
     googleProvider = new GoogleAuthProvider();
-    console.log('Firebase initialized successfully');
+    // console.log('Firebase initialized successfully');
   } catch (error) {
     console.warn('Firebase initialization failed:', error.message);
   }

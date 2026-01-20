@@ -6,10 +6,15 @@ export const useFirebaseSync = (userId = 'guest') => {
     const syncWatchlist = async () => {
       try {
         const firebaseWatchlist = await getWatchlistFromFirebase(userId);
-        const localWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+        let localWatchlist = [];
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+        }
         
         if (firebaseWatchlist.length > 0 && localWatchlist.length === 0) {
-          localStorage.setItem('watchlist', JSON.stringify(firebaseWatchlist));
+          if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem('watchlist', JSON.stringify(firebaseWatchlist));
+          }
         } else if (localWatchlist.length > 0) {
           await saveWatchlistToFirebase(userId, localWatchlist);
         }

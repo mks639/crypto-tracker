@@ -27,16 +27,29 @@ function Coin() {
   const [days, setDays] = useState(30);
   const [priceType, setPriceType] = useState("prices");
 
-  useEffect(() => {
-    if (id) {
-      getData();
-    }
-  }, [id, getData]);
+    const getData = async () => {
+      setLoading(true);
+      let coinData = await getCoinData(id, setError);
+      // console.log("Coin DATA>>>>", coinData);
+      settingCoinObject(coinData, setCoin);
+      let prices = await getPrices(id, days, priceType, setError);
+      if (prices) {
+        settingChartData(setChartData, prices, days);
+      }
+      setLoading(false);
+    };
+
+    useEffect(() => {
+      if (id) {
+        getData();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
 
   const getData = async () => {
     setLoading(true);
     let coinData = await getCoinData(id, setError);
-    console.log("Coin DATA>>>>", coinData);
+    // console.log("Coin DATA>>>>", coinData);
     settingCoinObject(coinData, setCoin);
     if (coinData) {
       const prices = await getPrices(id, days, priceType, setError);

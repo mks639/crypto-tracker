@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -18,6 +18,7 @@ import { Close, Google, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuth } from '../../auth/AuthContext';
 
 const LoginModal = ({ open, onClose }) => {
+  const timeoutRef = useRef([]);
   const [tab, setTab] = useState(0);
   const [formData, setFormData] = useState({
     email: '',
@@ -60,9 +61,10 @@ const LoginModal = ({ open, onClose }) => {
       }
       
       // Close modal after successful auth
-      setTimeout(() => {
+      const t = setTimeout(() => {
         onClose();
       }, 1000);
+      timeoutRef.current.push(t);
     } catch (err) {
       console.error('Email auth failed:', err);
     }
@@ -72,9 +74,10 @@ const LoginModal = ({ open, onClose }) => {
     try {
       await signInWithGoogle();
       // Close modal after successful auth
-      setTimeout(() => {
+      const t = setTimeout(() => {
         onClose();
       }, 1000);
+      timeoutRef.current.push(t);
     } catch (err) {
       console.error('Google auth failed:', err);
     }
@@ -249,6 +252,13 @@ const LoginModal = ({ open, onClose }) => {
       </DialogContent>
     </Dialog>
   );
+
+  useEffect(() => {
+    return () => {
+      timeoutRef.current.forEach(clearTimeout);
+      timeoutRef.current = [];
+    };
+  }, []);
 };
 
 export default LoginModal;

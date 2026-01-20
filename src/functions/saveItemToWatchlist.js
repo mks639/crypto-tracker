@@ -3,7 +3,10 @@ import { saveWatchlistToFirebase } from '../services/firebaseService';
 
 export const saveItemToWatchlist = async (e, id, userId = 'guest') => {
   e.preventDefault();
-  let watchlist = JSON.parse(localStorage.getItem("watchlist"));
+  let watchlist = [];
+  if (typeof window !== 'undefined' && window.localStorage) {
+    watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+  }
 
   if (watchlist) {
     if (!watchlist.includes(id)) {
@@ -29,7 +32,9 @@ export const saveItemToWatchlist = async (e, id, userId = 'guest') => {
       } - added to the watchlist`
     );
   }
-  
-  localStorage.setItem("watchlist", JSON.stringify(watchlist));
+
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.setItem("watchlist", JSON.stringify(watchlist));
+  }
   await saveWatchlistToFirebase(userId, watchlist);
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Container,
   Paper,
@@ -42,6 +43,7 @@ const ProfilePage = () => {
     }
   });
   const [success, setSuccess] = useState('');
+  const timeoutRef = useRef();
 
   const { data: favoriteCoinsData } = useApi(
     user?.profile?.favoriteCoins?.length > 0
@@ -72,7 +74,8 @@ const ProfilePage = () => {
       });
       setEditing(false);
       setSuccess('Profile updated successfully!');
-      setTimeout(() => setSuccess(''), 3000);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setSuccess(''), 3000);
     } catch (error) {
       console.error('Failed to update profile:', error);
     }
@@ -80,6 +83,11 @@ const ProfilePage = () => {
 
   const handleCancel = () => {
     setProfileData({
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      };
+    }, []);
       displayName: user.displayName || '',
       bio: user.profile?.bio || '',
       preferences: user.profile?.preferences || {

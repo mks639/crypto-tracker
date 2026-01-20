@@ -19,8 +19,12 @@ const initialState = {
   error: null,
   search: '',
   page: 1,
-  watchlist: JSON.parse(localStorage.getItem('watchlist') || '[]'),
-  theme: localStorage.getItem('theme') || 'dark'
+  watchlist: (typeof window !== 'undefined' && window.localStorage)
+    ? JSON.parse(localStorage.getItem('watchlist') || '[]')
+    : [],
+  theme: (typeof window !== 'undefined' && window.localStorage)
+    ? localStorage.getItem('theme') || 'dark'
+    : 'dark'
 };
 
 // Reducer
@@ -38,14 +42,20 @@ const appReducer = (state, action) => {
       return { ...state, page: action.payload };
     case ACTIONS.ADD_TO_WATCHLIST:
       const newWatchlist = [...state.watchlist, action.payload];
-      localStorage.setItem('watchlist', JSON.stringify(newWatchlist));
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('watchlist', JSON.stringify(newWatchlist));
+      }
       return { ...state, watchlist: newWatchlist };
     case ACTIONS.REMOVE_FROM_WATCHLIST:
       const filteredWatchlist = state.watchlist.filter(id => id !== action.payload);
-      localStorage.setItem('watchlist', JSON.stringify(filteredWatchlist));
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('watchlist', JSON.stringify(filteredWatchlist));
+      }
       return { ...state, watchlist: filteredWatchlist };
     case ACTIONS.SET_THEME:
-      localStorage.setItem('theme', action.payload);
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('theme', action.payload);
+      }
       return { ...state, theme: action.payload };
     default:
       return state;

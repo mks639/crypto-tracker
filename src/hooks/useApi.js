@@ -20,7 +20,7 @@ export const useApi = (url, options = {}) => {
 
   const fetchData = useCallback(async () => {
     // Check cache first
-    if (cache) {
+    if (cache && typeof window !== 'undefined' && window.localStorage) {
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         const { data: cachedData, timestamp } = JSON.parse(cached);
@@ -46,7 +46,7 @@ export const useApi = (url, options = {}) => {
         const responseData = response.data;
         setData(responseData);
         // Cache the response
-        if (cache) {
+        if (cache && typeof window !== 'undefined' && window.localStorage) {
           localStorage.setItem(cacheKey, JSON.stringify({
             data: responseData,
             timestamp: Date.now()
@@ -69,10 +69,11 @@ export const useApi = (url, options = {}) => {
     if (url) {
       fetchData();
     }
-  }, [fetchData, CACHE_DURATION, ...dependencies]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url, fetchData, CACHE_DURATION]);
 
   const refetch = useCallback(() => {
-    if (cache) {
+    if (cache && typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem(cacheKey);
     }
     fetchData();

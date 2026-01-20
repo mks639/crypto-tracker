@@ -8,18 +8,19 @@ function Watchlist() {
   const watchlist = JSON.parse(localStorage.getItem("watchlist"));
   const [coins, setCoins] = useState([]);
 
-  useEffect(() => {
-    if (watchlist) {
-      getData();
-    }
-  }, [getData, watchlist]);
-
   const getData = async () => {
     const allCoins = await get100Coins();
     if (allCoins) {
       setCoins(allCoins.filter((coin) => watchlist.includes(coin.id)));
     }
   };
+
+  useEffect(() => {
+    if (watchlist) {
+      getData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchlist]);
 
   return (
     <div>
