@@ -27,18 +27,6 @@ function Coin() {
   const [days, setDays] = useState(30);
   const [priceType, setPriceType] = useState("prices");
 
-    const getData = async () => {
-      setLoading(true);
-      let coinData = await getCoinData(id, setError);
-      // console.log("Coin DATA>>>>", coinData);
-      settingCoinObject(coinData, setCoin);
-      let prices = await getPrices(id, days, priceType, setError);
-      if (prices) {
-        settingChartData(setChartData, prices, days);
-      }
-      setLoading(false);
-    };
-
     useEffect(() => {
       if (id) {
         getData();

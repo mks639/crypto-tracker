@@ -18,6 +18,12 @@ import { Close, Google, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuth } from '../../auth/AuthContext';
 
 const LoginModal = ({ open, onClose }) => {
+    useEffect(() => {
+      return () => {
+        timeoutRef.current.forEach(clearTimeout);
+        timeoutRef.current = [];
+      };
+    }, []);
   const timeoutRef = useRef([]);
   const [tab, setTab] = useState(0);
   const [formData, setFormData] = useState({
@@ -251,14 +257,9 @@ const LoginModal = ({ open, onClose }) => {
         </Box>
       </DialogContent>
     </Dialog>
-  );
 
-  useEffect(() => {
-    return () => {
-      timeoutRef.current.forEach(clearTimeout);
-      timeoutRef.current = [];
-    };
-  }, []);
-};
+    // ...existing code...
+  );
+}
 
 export default LoginModal;

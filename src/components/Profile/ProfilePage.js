@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Container,
@@ -81,13 +80,14 @@ const ProfilePage = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   const handleCancel = () => {
     setProfileData({
-    useEffect(() => {
-      return () => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      };
-    }, []);
       displayName: user.displayName || '',
       bio: user.profile?.bio || '',
       preferences: user.profile?.preferences || {

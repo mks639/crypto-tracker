@@ -11,7 +11,7 @@ export const useApi = (url, options = {}) => {
     cache = true, 
     retries = 3, 
     retryDelay = 1000,
-    dependencies = [] 
+    // dependencies = [] 
   } = options;
 
   // Cache implementation
