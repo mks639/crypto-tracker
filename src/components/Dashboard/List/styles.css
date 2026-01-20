@@ -1,0 +1,190 @@
+.list-row {
+  width: 100%;
+  min-height: 80px;
+  padding: 1rem;
+  margin-bottom: 1rem !important;
+  display: grid;
+  grid-template-columns: 50px 1fr 100px 110px 120px 120px 30px;
+  gap: 0.5rem;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+  background: rgba(26, 35, 50, 0.8);
+  border: 1px solid rgba(58, 128, 233, 0.2);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.list-row:hover {
+  background: rgba(58, 128, 233, 0.1);
+  border-color: rgba(58, 128, 233, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(58, 128, 233, 0.15);
+}
+
+.list-row td {
+  width: 20%;
+  text-align: left;
+}
+
+.td-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coin-image-td {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.td-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.info-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.coin-symbol {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.coin-name {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.td-current-price {
+  text-align: right;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #4caf50;
+}
+
+.current-price-red {
+  color: #f44336;
+}
+
+.chip-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-chip {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.price-chip.red {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+.td-totalVolume {
+  text-align: right;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.td-marketCap {
+  text-align: right;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.watchlist-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3a80e9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.watchlist-icon:hover {
+  transform: scale(1.2);
+  color: #5a9bff;
+}
+
+.mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  .list-row {
+    grid-template-columns: 40px 1fr 80px 90px 100px 25px;
+    gap: 0.3rem;
+    padding: 0.8rem 0.5rem;
+  }
+
+  .td-totalVolume {
+    display: none;
+  }
+
+  .coin-image-td {
+    width: 30px;
+    height: 30px;
+  }
+
+  .coin-symbol {
+    font-size: 0.8rem;
+  }
+
+  .coin-name {
+    font-size: 0.7rem;
+  }
+
+  .price-chip {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+  }
+
+  .td-current-price {
+    font-size: 0.9rem;
+  }
+
+  .td-marketCap {
+    font-size: 0.7rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .td-marketCap,
+  .td-chip-icon {
+    display: none !important;
+  }
+  .mobile {
+    display: block !important;
+    text-align: left !important;
+  }
+  .list-row td,
+  .td-p {
+    font-size: 0.6rem !important;
+  }
+
+  .td-info {
+    width: 4rem !important;
+  }
+
+  .coin-image-td {
+    height: 2rem !important;
+    width: 2rem !important;
+  }
+}
