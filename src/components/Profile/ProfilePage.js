@@ -30,7 +30,7 @@ import { useAuth } from '../../auth/AuthContext';
 import { useApi } from '../../hooks/useApi';
 
 const ProfilePage = () => {
-  const { user, updateUserProfile } = useAuth();
+  const { user, updateUserProfile, removeFromFavorites } = useAuth();
   const [editing, setEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     displayName: '',

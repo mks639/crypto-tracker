@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import StarIcon from "@mui/icons-material/Star";
 import "./styles.css";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
@@ -16,7 +18,7 @@ const formatMarketCap = (num) => {
 
 function List({ coin, delay }) {
   const { user, addToFavorites, removeFromFavorites } = useAuth();
-  const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+  // Removed unused watchlist variable
   // const [isCoinAdded, setIsCoinAdded] = useState(watchlist?.includes(coin?.id));
   const [isFavorite, setIsFavorite] = useState(
     user?.profile?.favoriteCoins?.includes(coin?.id) || false

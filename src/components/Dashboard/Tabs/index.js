@@ -7,7 +7,7 @@ import "./styles.css";
 import Grid from "../Grid";
 import List from "../List";
 // import { convertNumber } from "../../../functions/convertNumber";
-// import Button from "../../Common/Button";
+import Button from "../../Common/Button";
 
 export default function TabsComponent({ coins, setSearch }) {
   const [value, setValue] = React.useState("grid");
