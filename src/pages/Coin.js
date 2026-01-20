@@ -7,7 +7,7 @@ import LineChart from "../components/CoinPage/LineChart";
 import SelectDays from "../components/CoinPage/SelectDays";
 import ToggleComponents from "../components/CoinPage/ToggleComponent";
 import MarketStats from "../components/CoinPage/MarketStats";
-import Button from "../components/Common/Button";
+// import Button from "../components/Common/Button";
 import Header from "../components/Common/Header";
 import Loader from "../components/Common/Loader";
 import List from "../components/Dashboard/List";
@@ -31,7 +31,7 @@ function Coin() {
     if (id) {
       getData();
     }
-  }, [id]);
+  }, [id, getData]);
 
   const getData = async () => {
     setLoading(true);

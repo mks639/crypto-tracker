@@ -12,7 +12,7 @@ function Watchlist() {
     if (watchlist) {
       getData();
     }
-  }, []);
+  }, [getData, watchlist]);
 
   const getData = async () => {
     const allCoins = await get100Coins();

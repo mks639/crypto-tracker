@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Container, Grid, Paper, Typography, Divider } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import Info from "../components/CoinPage/Info";
 import LineChart from "../components/CoinPage/LineChart";
 import ToggleComponents from "../components/CoinPage/ToggleComponent";
@@ -35,7 +35,7 @@ function Compare() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   const getData = async () => {
     setLoading(true);
